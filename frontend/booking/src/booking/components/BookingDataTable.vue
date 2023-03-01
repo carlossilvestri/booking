@@ -84,7 +84,9 @@ export default {
     async getData() {
       this.isLoading = true;
       const { content } = await bookingService.get("?page=0&size=20&sort=id");
-      this.bookings = content;
+      if (content) {
+        this.bookings = content;
+      }
       this.isLoading = false;
     },
     async init() {

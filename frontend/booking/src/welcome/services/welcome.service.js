@@ -9,6 +9,7 @@ export default {
     try {
       if (!payload) return;
       const { data } = await axiosInstance.post("/auth/authenticate", payload);
+      console.log(data);
       if (data?.token) {
         localStorage.setItem("access_token", data.token);
       }
