@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jwt_security
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  data:
+    rest:
+      default-page-size: 20
+      limit-param-name: limit
+      sort-param-name: sort
+      page-param-name: page
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

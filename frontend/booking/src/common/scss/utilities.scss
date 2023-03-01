@@ -1,0 +1,16 @@
+@import "variables";
+/* UTILIDADES */
+.vh-100 {
+  height: 100vh;
+}
+.cont-card {
+  height: 100vh;
+  background: $color-neutral-100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Others */
+.pointer{
+  cursor: pointer;
+}
