@@ -1,16 +1,17 @@
 package com.alibou.security.booking;
 
-import com.alibou.security.user.User;
-import com.turkraft.springfilter.boot.Filter;
+import com.turkraft.springfilter.converter.FilterSpecification;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "booking")
@@ -28,12 +29,14 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.create(request));
     }
 
+    @Operation(parameters = @Parameter(name = "filter", in = ParameterIn.QUERY, schema = @Schema(type = "string"),
+            example = "active:true and status:'CREATED' and email:'test@gmail.com' or date > '2023-01-01' and description~~'%cumple%'"))
     @SecurityRequirement(name = "Bearer Authentication")
-    @GetMapping()
+    @PostMapping()
     public Page<Booking> findAll(
-            Pageable pageable
+            @Parameter(hidden = true) FilterSpecification<Booking> filter, Pageable pageable
     ){
-        return bookingService.findAll(pageable);
+        return bookingService.findAll(filter, pageable);
     }
 
     @SecurityRequirement(name = "Bearer Authentication")

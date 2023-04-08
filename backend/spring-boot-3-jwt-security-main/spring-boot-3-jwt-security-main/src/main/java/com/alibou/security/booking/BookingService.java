@@ -1,10 +1,9 @@
 package com.alibou.security.booking;
 
-import com.alibou.security.user.User;
+import com.turkraft.springfilter.converter.FilterSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
@@ -42,9 +41,16 @@ public class BookingService {
      * @Return Page<Booking>
      * */
     public Page<Booking> findAll(Pageable pageable){
-        return bookingRepository.findAllByActiveTrue(pageable);
+        return bookingRepository.findAll(pageable);
     }
-
+    /*
+     * Get paginated bookings.
+     * @Param Pageable pageable
+     * @Return Page<Booking>
+     * */
+    public Page<Booking> findAll(FilterSpecification<Booking> filter, Pageable pageable){
+            return bookingRepository.findAll(filter, pageable);
+    }
     /*
      * Update a booking.
      * @Param BookingUpdateDao bookingRequest, Integer id
